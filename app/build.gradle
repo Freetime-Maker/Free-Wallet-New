@@ -9,14 +9,13 @@ plugins {
 android {
 
     defaultConfig {
-        applicationId "io.horizontalsystems.bankwallet"
+        applicationId "com.freetime.wallet"
         compileSdkVersion compile_sdk_version
         minSdkVersion min_sdk_version
         targetSdkVersion compile_sdk_version
-        versionCode 155
-        versionName "0.47.0"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        resourceConfigurations += ['de', 'es', 'en', 'fa', 'fr', 'ko', 'pt', 'pt-rBR', 'ru', 'tr', 'zh']
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas".toString())
@@ -24,25 +23,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         lintOptions {
             checkReleaseBuilds false
-        }
-
-        resValue "string", "companyWebPageLink", "https://horizontalsystems.io"
-        resValue "string", "appWebPageLink", "https://unstoppable.money"
-        resValue "string", "analyticsLink", "https://unstoppable.money/analytics"
-        resValue "string", "appGithubLink", "https://github.com/horizontalsystems/unstoppable-wallet-android"
-        resValue "string", "appTwitterLink", "https://twitter.com/UnstoppableByHS"
-        resValue "string", "appTelegramLink", "https://t.me/unstoppable_announcements"
-        resValue "string", "reportEmail", "support.unstoppable@protonmail.com"
-        resValue "string", "releaseNotesUrl", "https://api.github.com/repos/horizontalsystems/unstoppable-wallet-android/releases/tags/"
-        resValue "string", "walletConnectAppMetaDataName", "Unstoppable"
-        resValue "string", "walletConnectAppMetaDataUrl", "unstoppable.money"
-        resValue "string", "walletConnectAppMetaDataIcon", "https://raw.githubusercontent.com/horizontalsystems/HS-Design/master/PressKit/UW-AppIcon-on-light.png"
-        resValue "string", "accountsBackupFileSalt", "unstoppable"
-
-        buildConfigField "boolean", "FDROID_BUILD", "false"
-
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a"
         }
     }
 
@@ -52,132 +32,10 @@ android {
         buildConfig true
     }
 
-    signingConfigs {
-        appCenter {
-            storeFile file("./test.keystore")
-            storePassword "testKeystore123"
-
-            keyAlias "testKeystore"
-            keyPassword "testKeystore123"
-        }
-    }
-
-    flavorDimensions += "distribution"
-    productFlavors {
-        base {
-            dimension = "distribution"
-            signingConfig signingConfigs.debug
-        }
-
-        fdroid {
-            dimension = "distribution"
-            buildConfigField "boolean", "FDROID_BUILD", "true"
-        }
-
-        fdroidCi {
-            dimension = "distribution"
-            applicationIdSuffix ".fdroidci"
-            buildConfigField "boolean", "FDROID_BUILD", "true"
-            signingConfig signingConfigs.appCenter
-        }
-
-        ci {
-            dimension = "distribution"
-
-            applicationIdSuffix ".appcenter"
-            versionCode System.getenv("BUILD_NUMBER")?.toInteger() ?: defaultConfig.versionCode
-            signingConfig signingConfigs.appCenter
-        }
-    }
-
-    buildTypes {
-        debug {
-            signingConfig null
-            debuggable true
-            minifyEnabled false
-            applicationIdSuffix ".dev"
-            resValue "string", "twitterBearerToken", "AAAAAAAAAAAAAAAAAAAAAJgeNwEAAAAA6xVpR6xLKTrxIA3kkSyRA92LDpA%3Da6auybDwcymUyh2BcS6zZwicUdxGtrzJC0qvOSdRwKLeqBGhwB"
-            resValue "string", "etherscanKey", "GKNHXT22ED7PRVCKZATFZQD1YI7FK9AAYE"
-            resValue "string", "bscscanKey", "R396MSJNCKX2YK4EIMP3EWYAW21NSVMXRN"
-            resValue "string", "otherScanKey", "FU7CYEXQEUSMXJJF8MZR6BNRMP9XT8S9CP"
-            resValue "string", "is_release", "false"
-            resValue "string", "guidesUrl", "https://raw.githubusercontent.com/horizontalsystems/blockchain-crypto-guides/v1.2/index.json"
-            resValue "string", "eduUrl", "https://raw.githubusercontent.com/horizontalsystems/Unstoppable-Wallet-Website/refs/tags/v1.4/src/edu.json"
-            resValue "string", "faqUrl", "https://raw.githubusercontent.com/horizontalsystems/Unstoppable-Wallet-Website/master/src/faq.json"
-            resValue "string", "coinsJsonUrl", "https://raw.githubusercontent.com/horizontalsystems/cryptocurrencies/master/coins.json"
-            resValue "string", "providerCoinsJsonUrl", "https://raw.githubusercontent.com/horizontalsystems/cryptocurrencies/master/provider.coins.json"
-            resValue "string", "marketApiBaseUrl", "https://api-dev.blocksdecoded.com"
-            resValue "string", "marketApiKey", "IQf1uAjkthZp1i2pYzkXFDom"
-            resValue "string", "openSeaApiKey", "bfbd6061a33e455c8581b594774fecb3"
-            resValue "string", "walletConnectV2Key", "8b4f41c60880a3e3ad57d82fddb30568"
-            resValue "string", "solscanApiKey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVkQXQiOjE2Nzk0NjQyMTQ4NDAsImVtYWlsIjoiaHJ6c3lzdGVtczEwMUBnbWFpbC5jb20iLCJhY3Rpb24iOiJ0b2tlbi1hcGkiLCJpYXQiOjE2Nzk0NjQyMTR9.BRM7J9RbDpHgd2oMAus00XfWOxTJgV2Tn2_chXZOdtk"
-            resValue "string", "trongridApiKeys", "33374494-8060-447e-8367-90c5efd4ed95"
-            resValue "string", "udnApiKey", "r2phzgatt_zt9-hd_wyvdjrdsrimnxgokm7knyag1malzgcz"
-            resValue "string", "oneInchApiKey", "3EttyCzgWb2GLFIRoPIUYM0M4uKAVEcq"
-            resValue "string", "blocksDecodedEthereumRpc", "https://api-dev.blocksdecoded.com/v1/ethereum-rpc/mainnet"
-            resValue "string", "chainalysisBaseUrl", "https://public.chainalysis.com/api/v1/"
-            resValue "string", "chainalysisApiKey", "928bb256db73f1cb93e1b3366a145d9fbe06e28581c8b665b82ad70bbfef1db4"
-            resValue "string", "hashDitBaseUrl", "https://api.diting.pro/v2/hashdit/"
-            resValue "string", "hashDitApiKey", "KuyxZfvJXFrpAcztshhYqeWaRusxyGRDDhFYkeIw"
-            resValue "string", "uswapApiBaseUrl", "https://swap-dev.unstoppable.money/api/v1/"
-            resValue "string", "uswapApiKey", "44fc76602e17e0c8259b6ce3bae3ca90804c6fd8f42ca00e6943a6b1ba7fe242"
-        }
-
-        release {
-            debuggable false
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "twitterBearerToken", "AAAAAAAAAAAAAAAAAAAAAJgeNwEAAAAA6xVpR6xLKTrxIA3kkSyRA92LDpA%3Da6auybDwcymUyh2BcS6zZwicUdxGtrzJC0qvOSdRwKLeqBGhwB"
-            resValue "string", "etherscanKey", "IEXTB9RE7MUV2UQ9X238RP146IEJB1J5HS,27S4V3GYJGMCPWQZ2T4SF9355QBQYQ3FI7,YK4KEA3TANM8KZ5J6E2Q1ZIM6YDM8TEABM"
-            resValue "string", "bscscanKey", "FQ2HSNNEHVG71U96P1TF3WF9RTF6AF5MRA,G6K8VZDWYSJHTCRURRITFZ2ZWV48GRGTZQ,R396MSJNCKX2YK4EIMP3EWYAW21NSVMXRN,"
-            resValue "string", "otherScanKey", "Y855XHV4XKUC9DTRM2ZQG8XAQ96EJV221Q,43DEJEEMA1P81YAU555A1TECRY5FPIWCFH"
-            resValue "string", "is_release", "true"
-            resValue "string", "guidesUrl", "https://raw.githubusercontent.com/horizontalsystems/blockchain-crypto-guides/v1.2/index.json"
-            resValue "string", "eduUrl", "https://raw.githubusercontent.com/horizontalsystems/Unstoppable-Wallet-Website/refs/tags/v1.4/src/edu.json"
-            resValue "string", "faqUrl", "https://raw.githubusercontent.com/horizontalsystems/Unstoppable-Wallet-Website/v1.3/src/faq.json"
-            resValue "string", "coinsJsonUrl", "https://raw.githubusercontent.com/horizontalsystems/cryptocurrencies/v0.21/coins.json"
-            resValue "string", "providerCoinsJsonUrl", "https://raw.githubusercontent.com/horizontalsystems/cryptocurrencies/v0.21/provider.coins.json"
-            resValue "string", "marketApiBaseUrl", "https://api.blocksdecoded.com"
-            resValue "string", "marketApiKey", "IQf1uAjkthZp1i2pYzkXFDom"
-            resValue "string", "openSeaApiKey", "bfbd6061a33e455c8581b594774fecb3"
-            resValue "string", "walletConnectV2Key", "0c5ca155c2f165a7d0c88686f2113a72"
-            resValue "string", "solscanApiKey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVhdGVkQXQiOjE2Nzk0NjQxMTQ0ODUsImVtYWlsIjoiaHNkYW84ODg4QGdtYWlsLmNvbSIsImFjdGlvbiI6InRva2VuLWFwaSIsImlhdCI6MTY3OTQ2NDExNH0.91DUjjjYu86f1ZMMJ5cyJxIKTTw_srhI-vNgYaTCPUU"
-            resValue "string", "trongridApiKeys", "8f5ae2c8-8012-42a8-b0ca-ffc2741f6a29,578aa64f-a79f-4ee8-86e9-e9860e2d050a,1e92f1fc-41f8-401f-a7f6-5b719b6f1280"
-            resValue "string", "udnApiKey", "r2phzgatt_zt9-hd_wyvdjrdsrimnxgokm7knyag1malzgcz"
-            resValue "string", "oneInchApiKey", "3EttyCzgWb2GLFIRoPIUYM0M4uKAVEcq"
-            resValue "string", "blocksDecodedEthereumRpc", "https://api.blocksdecoded.com/v1/ethereum-rpc/mainnet"
-            resValue "string", "chainalysisBaseUrl", "https://public.chainalysis.com/api/v1/"
-            resValue "string", "chainalysisApiKey", "928bb256db73f1cb93e1b3366a145d9fbe06e28581c8b665b82ad70bbfef1db4"
-            resValue "string", "hashDitBaseUrl", "https://service.hashdit.io/v2/hashdit/"
-            resValue "string", "hashDitApiKey", "aGMkgODYiUFtTYrSRcEZsIfPHeASOlGYXClJZNWF"
-            resValue "string", "uswapApiBaseUrl", "https://swap-api.unstoppable.money/v1/"
-            resValue "string", "uswapApiKey", "44fc76602e17e0c8259b6ce3bae3ca90804c6fd8f42ca00e6943a6b1ba7fe242"
-        }
-    }
-
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    packagingOptions {
-        resources {
-            pickFirsts += [
-                'META-INF/atomicfu.kotlin_module',
-                'META-INF/FastDoubleParser-LICENSE',
-                'META-INF/FastDoubleParser-NOTICE',
-                'META-INF/io.netty.versions.properties'
-            ]
-            excludes += [
-                'META-INF/INDEX.LIST',
-                'META-INF/DEPENDENCIES',
-                'META-INF/LICENSE.md'
-            ]
-        }
-        jniLibs {
-            useLegacyPackaging true
-        }
     }
 
     kotlinOptions {
@@ -187,10 +45,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.12'
     }
-    namespace 'io.horizontalsystems.bankwallet'
-    lint {
-        disable 'LogNotTimber'
-    }
+    namespace 'com.freetime.wallet'
 
     configurations.all { c ->
         c.resolutionStrategy.dependencySubstitution {
@@ -352,15 +207,6 @@ dependencies {
     implementation project(':core')
     implementation project(':components:icons')
     implementation project(':components:chartview')
-
-    implementation project(':subscriptions-core')
-
-    baseDebugImplementation project(':subscriptions-dev')
-    baseReleaseImplementation project(':subscriptions-google-play')
-
-    fdroidImplementation project(':subscriptions-fdroid')
-    fdroidCiImplementation project(':subscriptions-fdroid')
-    ciImplementation project(':subscriptions-dev')
 
     // Integration with activities
     implementation 'androidx.activity:activity-compose:1.11.0'
